@@ -400,7 +400,17 @@
                     <h4 class="mb-0 text-primary" id="total-price">A$0.00</h4>
                   </div>
 
-                  <button type="button" class="btn-primary w-100 mb-2" id="proceed-payment-btn" style="display: none; text-align: center;">
+                  <!-- Terms and Conditions Checkbox -->
+                  <div class="mb-3" id="terms-section" style="display: none;">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="terms-checkbox" required>
+                      <label class="form-check-label small" for="terms-checkbox">
+                        I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>
+                      </label>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn-primary w-100 mb-2" id="proceed-payment-btn" style="display: none; text-align: center;" disabled>
                     <i class="bi bi-credit-card"></i> Proceed to Payment
                   </button>
 
@@ -938,6 +948,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('coupon-section').style.display = 'block';
             document.getElementById('gst-section').style.display = 'flex';
             document.getElementById('summary-total-section').style.display = 'flex';
+            document.getElementById('terms-section').style.display = 'block';
             document.getElementById('proceed-payment-btn').style.display = 'block';
 
             subtotal = roomsPrice + basePrice + serviceTypeMultiplier + extrasTotal;
@@ -1044,8 +1055,27 @@ document.addEventListener('DOMContentLoaded', function() {
         if (type === 'danger') messageEl.classList.add('text-danger');
     }
 
+    // Terms and Conditions Checkbox Handler
+    document.getElementById('terms-checkbox').addEventListener('change', function() {
+        const proceedBtn = document.getElementById('proceed-payment-btn');
+        if (this.checked) {
+            proceedBtn.disabled = false;
+            proceedBtn.classList.remove('opacity-50');
+        } else {
+            proceedBtn.disabled = true;
+            proceedBtn.classList.add('opacity-50');
+        }
+    });
+
     // Proceed to Stripe Payment
     document.getElementById('proceed-payment-btn').addEventListener('click', function() {
+        // Check if terms are accepted
+        const termsCheckbox = document.getElementById('terms-checkbox');
+        if (!termsCheckbox.checked) {
+            alert('Please accept the Terms and Conditions to proceed.');
+            return;
+        }
+
         const btn = this;
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Processing...';
@@ -1239,6 +1269,16 @@ document.addEventListener('DOMContentLoaded', function() {
     color: #28a745;
     font-weight: bold;
     font-size: 1.1em;
+}
+
+/* Proceed to Payment Button Disabled State */
+#proceed-payment-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#proceed-payment-btn:disabled:hover {
+    opacity: 0.6;
 }
 </style>
 @endpush
