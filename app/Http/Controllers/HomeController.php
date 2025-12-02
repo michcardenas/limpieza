@@ -115,5 +115,27 @@ class HomeController extends Controller
             'normalMultiplier', 'deepMultiplier'
         ));
     }
+
+    public function termsAndConditions()
+    {
+        $layoutConfig = LandingLayoutConfig::first();
+
+        // Cargar SEO para la página terms-and-conditions (solo si está activo)
+        $page = Page::where('slug', 'terms-and-conditions')->first();
+        $seo = $page && $page->seo && $page->seo->is_active ? $page->seo : null;
+
+        return view('landing_page.terms_and_conditions', compact('layoutConfig', 'seo'));
+    }
+
+    public function privacyPolicy()
+    {
+        $layoutConfig = LandingLayoutConfig::first();
+
+        // Cargar SEO para la página privacy-policy (solo si está activo)
+        $page = Page::where('slug', 'privacy-policy')->first();
+        $seo = $page && $page->seo && $page->seo->is_active ? $page->seo : null;
+
+        return view('landing_page.privacy_policy', compact('layoutConfig', 'seo'));
+    }
 }
 

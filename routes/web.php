@@ -33,6 +33,8 @@ Route::get('/equipo',[HomeController::class, 'equipo'] )->name('equipo');
 Route::get('/servicios',[HomeController::class, 'servicios'] )->name('servicios');
 Route::get('/contacto',[HomeController::class, 'contacto'] )->name('contacto');
 Route::get('/services-calculator',[HomeController::class, 'servicesCalculator'] )->name('services.calculator');
+Route::get('/terms-and-conditions',[HomeController::class, 'termsAndConditions'] )->name('terms.conditions');
+Route::get('/privacy-policy',[HomeController::class, 'privacyPolicy'] )->name('privacy.policy');
 
 // Ruta para envío de correo desde formulario de contacto del landing page
 Route::post('/contact/send', [AdminLandingPageController::class, 'sendContactEmail'])->name('contact.send');

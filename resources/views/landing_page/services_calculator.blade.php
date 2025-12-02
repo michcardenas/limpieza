@@ -405,7 +405,7 @@
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" id="terms-checkbox" required>
                       <label class="form-check-label small" for="terms-checkbox">
-                        I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>
+                        I agree to the <a href="{{ route('terms.conditions') }}" target="_blank">Terms and Conditions</a> and <a href="{{ route('privacy.policy') }}" target="_blank">Privacy Policy</a>
                       </label>
                     </div>
                   </div>
